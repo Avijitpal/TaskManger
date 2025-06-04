@@ -1,0 +1,70 @@
+🔸 1. Importing Express and creating a Router
+js
+Copy code
+const express = require("express");
+const router = express.Router();
+You import Express.
+
+Then, you create a Router instance using express.Router() — a mini Express app that you can use to define routes separately and then export.
+
+🔸 2. Importing Controller Functions
+js
+Copy code
+const {
+  createTask,
+  getTasks,
+  getTask,
+  updateTask,
+  deleteTask
+} = require("../controllers/taskController");
+This uses object destructuring to import five functions from the taskController.js file.
+
+Each of these functions handles a specific CRUD operation:
+
+createTask: Create a new task (POST)
+
+getTasks: Get all tasks (GET)
+
+getTask: Get a single task by ID (GET)
+
+updateTask: Update a task by ID (PUT)
+
+deleteTask: Delete a task by ID (DELETE)
+
+🔸 3. Defining the Routes
+js
+Copy code
+router.post("/", createTask);
+router.get("/", getTasks);
+router.get("/:id", getTask);
+router.put("/:id", updateTask);
+router.delete("/:id", deleteTask);
+Each route is associated with a URL path and an HTTP method:
+
+HTTP Method	Path	Function	Purpose
+POST	/	createTask	Create a new task
+GET	/	getTasks	Fetch all tasks
+GET	/:id	getTask	Fetch a task by its ID
+PUT	/:id	updateTask	Update a task by its ID
+DELETE	/:id	deleteTask	Delete a task by its ID
+
+Example URL for fetching a task with ID 123:
+GET /api/tasks/123
+
+🔸 4. Exporting the Router
+js
+Copy code
+module.exports = router;
+This makes the router available to be imported in your server.js file where it can be mounted with:
+
+js
+Copy code
+app.use('/api/tasks', taskRoutes);
+✅ Summary
+It's a clean, modular way to define all task-related routes.
+
+Keeps your server.js file uncluttered.
+
+Promotes separation of concerns by pushing business logic into taskController.js.
+
+Let me know if you'd like an explanation of the taskController.js file next!
